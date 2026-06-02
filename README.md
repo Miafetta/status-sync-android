@@ -5,7 +5,11 @@
 </p>
 
 <p align="center">
-  <strong>状态同步</strong>
+  <strong>Status Sync</strong>
+</p>
+
+<p align="center">
+  English | <a href="README.zh-CN.md">Simplified Chinese</a>
 </p>
 
 Status Sync Android is a small Android application for publishing the current state of a personal phone to a self-hosted endpoint. It is designed for personal homepages, dashboards, and status pages that need to display whether a device is online, what network it is using, and other user-controlled status information.
@@ -20,7 +24,7 @@ The app uses Shizuku to read selected system state, shows the payload before upl
 - Configure the server API URL in the app.
 - Configure an optional upload token for Bearer authentication.
 - Set a display delay, for example making new status visible after 5 minutes.
-- Enable private mode, replacing public fields with `主人正在摸鱼`.
+- Enable private mode, replacing public status fields with a configured private status message.
 - Follow system light/dark mode and Material You dynamic color where available.
 - Use a Material-style interface inspired by Shizuku's clear hierarchy and settings flow.
 
@@ -51,11 +55,7 @@ The app currently uploads the following JSON fields:
 }
 ```
 
-When private mode is enabled, the public status fields are replaced with:
-
-```text
-主人正在摸鱼
-```
+When private mode is enabled, public status fields are replaced with the app's private status message.
 
 ## Server API
 
