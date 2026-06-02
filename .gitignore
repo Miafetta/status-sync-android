@@ -20,3 +20,4 @@ keystore.properties
 release-signing.properties
 release-signing-passwords.txt
 app-release.apk
+*.idsig
