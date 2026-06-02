@@ -21,3 +21,4 @@ release-signing.properties
 release-signing-passwords.txt
 app-release.apk
 *.idsig
+.codex-memory.md
