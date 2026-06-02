@@ -140,4 +140,4 @@ app/src/main/java/com/miafetta/statussyncandroid/
 
 ## 许可证
 
-本项目暂未选择开源许可证。在添加许可证前，所有权利由仓库所有者保留。
+状态同步使用 GNU General Public License v3.0 开源许可证。详情请查看 [LICENSE](LICENSE)。

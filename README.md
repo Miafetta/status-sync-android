@@ -136,4 +136,4 @@ System status collection depends on Shizuku. The user must start Shizuku and exp
 
 ## License
 
-No open-source license has been selected yet. Until a license is added, all rights are reserved by the repository owner.
+Status Sync Android is licensed under the GNU General Public License v3.0. See [LICENSE](LICENSE) for details.
