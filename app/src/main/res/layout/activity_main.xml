@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/mainTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
+        android:paddingLeft="22dp"
+        android:paddingRight="22dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/ShizukuPageTitle"
+                android:text="@string/app_name" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSettings"
+                style="@style/ShizukuIconButton"
+                android:contentDescription="@string/action_open_settings"
+                app:icon="@drawable/ic_settings_24"
+                app:iconGravity="textStart" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/rootScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="?attr/colorSurface"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="22dp"
+            android:paddingTop="8dp"
+            android:paddingRight="22dp"
+            android:paddingBottom="28dp">
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/ShizukuCard"
+            android:layout_marginTop="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="20dp">
+
+                <ImageView
+                    style="@style/ShizukuIcon"
+                    android:contentDescription="@string/status_section_title"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_verified_24"
+                    app:tint="?attr/colorPrimary" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/ShizukuCardTitle"
+                        android:text="@string/status_read_permission" />
+
+                    <TextView
+                        android:id="@+id/tvStatus"
+                        style="@style/ShizukuCardSubtitle"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/status_initial" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/ShizukuCard"
+            android:layout_marginTop="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/ShizukuIcon"
+                        android:contentDescription="@string/sync_section_title"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_schedule_24"
+                        app:tint="?attr/colorPrimary" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/ShizukuCardTitle"
+                            android:text="@string/sync_section_title" />
+
+                        <TextView
+                            style="@style/ShizukuCardSubtitle"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/sync_section_subtitle" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnStart"
+                    style="@style/ShizukuButton"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:gravity="center"
+                    android:text="@string/action_start_sync"
+                    app:icon="@drawable/ic_play_24"
+                    app:iconGravity="start" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnUploadNow"
+                    style="@style/ShizukuButton"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="@string/action_upload_now"
+                    app:icon="@drawable/ic_upload_24"
+                    app:iconGravity="start" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/ShizukuCard"
+            android:layout_marginTop="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/ShizukuIcon"
+                        android:contentDescription="@string/preview_title"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_article_24"
+                        app:tint="?attr/colorPrimary" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/ShizukuCardTitle"
+                            android:text="@string/preview_title" />
+
+                        <TextView
+                            android:id="@+id/tvLastUpdated"
+                            style="@style/ShizukuCardSubtitle"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/preview_waiting" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRefresh"
+                    style="@style/ShizukuButton"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:gravity="center"
+                    android:text="@string/action_refresh_preview"
+                    app:icon="@drawable/ic_refresh_24"
+                    app:iconGravity="start" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout style="@style/ShizukuPreviewRow">
+                        <TextView
+                            style="@style/StatusPreviewLabel"
+                            android:text="@string/field_model" />
+
+                        <TextView
+                            android:id="@+id/tvModelValue"
+                            style="@style/StatusPreviewValue"
+                            android:text="@string/preview_waiting" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/ShizukuPreviewRow">
+                        <TextView
+                            style="@style/StatusPreviewLabel"
+                            android:text="@string/field_battery" />
+
+                        <TextView
+                            android:id="@+id/tvBatteryValue"
+                            style="@style/StatusPreviewValue"
+                            android:text="@string/preview_waiting" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/ShizukuPreviewRow">
+                        <TextView
+                            style="@style/StatusPreviewLabel"
+                            android:text="@string/field_window" />
+
+                        <TextView
+                            android:id="@+id/tvWindowValue"
+                            style="@style/StatusPreviewValue"
+                            android:text="@string/preview_waiting" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/ShizukuPreviewRow">
+                        <TextView
+                            style="@style/StatusPreviewLabel"
+                            android:text="@string/field_wifi" />
+
+                        <TextView
+                            android:id="@+id/tvWifiValue"
+                            style="@style/StatusPreviewValue"
+                            android:text="@string/preview_waiting" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/ShizukuPreviewRow">
+                        <TextView
+                            style="@style/StatusPreviewLabel"
+                            android:text="@string/field_network" />
+
+                        <TextView
+                            android:id="@+id/tvNetworkValue"
+                            style="@style/StatusPreviewValue"
+                            android:text="@string/preview_waiting" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/ShizukuPreviewRow">
+                        <TextView
+                            style="@style/StatusPreviewLabel"
+                            android:text="@string/field_location" />
+
+                        <TextView
+                            android:id="@+id/tvLocationValue"
+                            style="@style/StatusPreviewValue"
+                            android:text="@string/preview_waiting" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>
