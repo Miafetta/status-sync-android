@@ -14,7 +14,7 @@
 
 状态同步是一个面向个人主页、仪表盘和状态页的 Android 状态上报应用。应用通过 Shizuku 获取设备状态，在本机预览即将上传的数据，并按用户配置将 JSON 发送到自托管服务器接口。
 
-当前包名为 `com.miafetta.statussync`，当前版本为 `1.2`。
+当前包名为 `com.miafetta.statussync`，当前版本为 `1.2.1`。
 
 ## 功能
 

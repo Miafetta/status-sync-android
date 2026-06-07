@@ -14,7 +14,7 @@
 
 Status Sync Android is an Android status uploader for personal homepages, dashboards, and status pages. It uses Shizuku to collect selected device status, previews the payload locally, and uploads JSON data to a self-hosted API configured by the user.
 
-Current package name: `com.miafetta.statussync`. Current version: `1.2`.
+Current package name: `com.miafetta.statussync`. Current version: `1.2.1`.
 
 ## Features
 

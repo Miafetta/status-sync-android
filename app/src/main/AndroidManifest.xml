@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.statussync">
+        android:theme="@style/Theme.statussync"
+        android:usesCleartextTraffic="true">
         
         <provider
             android:name="rikka.shizuku.ShizukuProvider"
