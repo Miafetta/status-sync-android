@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.miafetta.statussyncandroid"
+    namespace = "com.miafetta.statussync"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -11,13 +11,11 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.miafetta.statussyncandroid"
+        applicationId = "com.miafetta.statussync"
         minSdk = 31
         targetSdk = 36
-        versionCode = 2
-        versionName = "1.1"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        versionCode = 3
+        versionName = "1.2"
 
         ndk {
             abiFilters += listOf("arm64-v8a")
@@ -42,15 +40,10 @@ android {
 dependencies {
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.junit)
-
-    implementation("dev.rikka.shizuku:api:13.1.5")
-    implementation("dev.rikka.shizuku:provider:13.1.5")
-    implementation("com.squareup.okhttp3:okhttp:4.11.0")
-    implementation("androidx.work:work-runtime-ktx:2.8.1")
+    implementation(libs.shizuku.api)
+    implementation(libs.shizuku.provider)
+    implementation(libs.okhttp)
+    implementation(libs.androidx.work.runtime.ktx)
 }

@@ -1,5 +1,6 @@
 *.iml
 .gradle
+.kotlin/
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -20,5 +21,6 @@ keystore.properties
 release-signing.properties
 release-signing-passwords.txt
 app-release.apk
+status-sync-android-*.apk
 *.idsig
 .codex-memory.md

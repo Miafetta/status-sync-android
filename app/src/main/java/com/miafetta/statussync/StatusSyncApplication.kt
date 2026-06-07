@@ -1,4 +1,4 @@
-package com.miafetta.statussyncandroid
+package com.miafetta.statussync
 
 import android.app.Application
 import com.google.android.material.color.DynamicColors

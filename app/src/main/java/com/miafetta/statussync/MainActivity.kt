@@ -1,4 +1,4 @@
-package com.miafetta.statussyncandroid
+package com.miafetta.statussync
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -32,7 +32,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvLastUpdated: TextView
     private lateinit var tvModelValue: TextView
     private lateinit var tvBatteryValue: TextView
-    private lateinit var tvWindowValue: TextView
+    private lateinit var tvCurrentAppPackageValue: TextView
+    private lateinit var tvCurrentAppNameValue: TextView
     private lateinit var tvWifiValue: TextView
     private lateinit var tvNetworkValue: TextView
     private lateinit var tvLocationValue: TextView
@@ -53,7 +54,8 @@ class MainActivity : AppCompatActivity() {
         tvLastUpdated = findViewById(R.id.tvLastUpdated)
         tvModelValue = findViewById(R.id.tvModelValue)
         tvBatteryValue = findViewById(R.id.tvBatteryValue)
-        tvWindowValue = findViewById(R.id.tvWindowValue)
+        tvCurrentAppPackageValue = findViewById(R.id.tvCurrentAppPackageValue)
+        tvCurrentAppNameValue = findViewById(R.id.tvCurrentAppNameValue)
         tvWifiValue = findViewById(R.id.tvWifiValue)
         tvNetworkValue = findViewById(R.id.tvNetworkValue)
         tvLocationValue = findViewById(R.id.tvLocationValue)
@@ -147,7 +149,7 @@ class MainActivity : AppCompatActivity() {
                 rootScroll.paddingLeft,
                 rootScroll.paddingTop,
                 rootScroll.paddingRight,
-                systemBars.bottom
+                0
             )
             insets
         }
@@ -182,6 +184,8 @@ class MainActivity : AppCompatActivity() {
         val isNightMode = nightMode == Configuration.UI_MODE_NIGHT_YES
 
         window.statusBarColor = Color.TRANSPARENT
+        window.navigationBarColor = Color.TRANSPARENT
+        window.isNavigationBarContrastEnforced = false
         WindowInsetsControllerCompat(window, window.decorView).apply {
             isAppearanceLightStatusBars = !isNightMode
             isAppearanceLightNavigationBars = !isNightMode
@@ -202,7 +206,8 @@ class MainActivity : AppCompatActivity() {
         listOf(
             tvModelValue,
             tvBatteryValue,
-            tvWindowValue,
+            tvCurrentAppPackageValue,
+            tvCurrentAppNameValue,
             tvWifiValue,
             tvNetworkValue,
             tvLocationValue
@@ -214,7 +219,8 @@ class MainActivity : AppCompatActivity() {
         listOf(
             tvModelValue,
             tvBatteryValue,
-            tvWindowValue,
+            tvCurrentAppPackageValue,
+            tvCurrentAppNameValue,
             tvWifiValue,
             tvNetworkValue,
             tvLocationValue
@@ -236,7 +242,8 @@ class MainActivity : AppCompatActivity() {
                         listOf(
                             tvModelValue,
                             tvBatteryValue,
-                            tvWindowValue,
+                            tvCurrentAppPackageValue,
+                            tvCurrentAppNameValue,
                             tvWifiValue,
                             tvNetworkValue,
                             tvLocationValue
@@ -258,7 +265,8 @@ class MainActivity : AppCompatActivity() {
         }
         tvModelValue.text = displayValue(uploadPreview.model)
         tvBatteryValue.text = summarizeBattery(uploadPreview.batteryRaw)
-        tvWindowValue.text = displayValue(uploadPreview.windowRaw)
+        tvCurrentAppPackageValue.text = displayValue(uploadPreview.currentAppPackage.orEmpty())
+        tvCurrentAppNameValue.text = displayValue(uploadPreview.currentAppName.orEmpty())
         tvWifiValue.text = displayValue(uploadPreview.wifiRaw)
         tvNetworkValue.text = displayValue(uploadPreview.networkRaw)
         tvLocationValue.text = displayValue(uploadPreview.locationRaw)
@@ -271,7 +279,7 @@ class MainActivity : AppCompatActivity() {
         val powered = listOfNotNull(
             raw.valueAfter("AC powered")?.let { "AC=$it" },
             raw.valueAfter("USB powered")?.let { "USB=$it" },
-            raw.valueAfter("Wireless powered")?.let { "无线=$it" }
+            raw.valueAfter("Wireless powered")?.let { "无线充电=$it" }
         ).joinToString(" / ").ifBlank { null }
 
         return listOfNotNull(
@@ -286,8 +294,8 @@ class MainActivity : AppCompatActivity() {
         return when (statusCode) {
             "1" -> "未知"
             "2" -> "充电中"
-            "3" -> "未充电"
-            "4" -> "未充满"
+            "3" -> "放电中"
+            "4" -> "未充电"
             "5" -> "已充满"
             else -> statusCode
         }
@@ -304,7 +312,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun displayValue(value: String): String {
         return value.trim()
-            .ifBlank { "无输出" }
+            .ifBlank { "暂无输出" }
             .let { if (it.length > 360) it.take(360) + "\n..." else it }
     }
 

@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/settingsRootScroll"
+    android:id="@+id/settingsRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
-    android:fillViewport="true">
+    android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/settingsTopBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:background="?attr/colorSurface"
         android:paddingLeft="22dp"
-        android:paddingTop="18dp"
-        android:paddingRight="22dp"
-        android:paddingBottom="28dp">
+        android:paddingRight="22dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,190 +33,314 @@
                 style="@style/ShizukuPageTitle"
                 android:text="@string/settings_title" />
         </LinearLayout>
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/ShizukuCard"
-            android:layout_marginTop="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="16dp"
-                android:paddingTop="20dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="20dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        style="@style/ShizukuIcon"
-                        android:contentDescription="@string/settings_permission_section"
-                        android:scaleType="center"
-                        android:src="@drawable/ic_verified_24"
-                        app:tint="?attr/colorPrimary" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/ShizukuCardTitle"
-                            android:text="@string/settings_permission_section" />
-
-                        <TextView
-                            android:id="@+id/tvPermissionStatus"
-                            style="@style/ShizukuCardSubtitle"
-                            android:layout_marginTop="5dp"
-                            android:text="@string/status_initial" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnRequestPermission"
-                    style="@style/ShizukuButton"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:text="@string/action_request_permission"
-                    app:icon="@drawable/ic_verified_24"
-                    app:iconGravity="start" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/ShizukuCard"
-            android:layout_marginTop="12dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="16dp"
-                android:paddingTop="20dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="20dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        style="@style/ShizukuIcon"
-                        android:contentDescription="@string/settings_sync_section"
-                        android:scaleType="center"
-                        android:src="@drawable/ic_settings_24"
-                        app:tint="?attr/colorPrimary" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/ShizukuCardTitle"
-                            android:text="@string/settings_sync_section" />
-
-                        <TextView
-                            style="@style/ShizukuCardSubtitle"
-                            android:layout_marginTop="5dp"
-                            android:text="@string/settings_sync_subtitle" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/ShizukuTextInputLayout"
-                    android:layout_marginTop="18dp"
-                    android:hint="@string/settings_server_url"
-                    app:endIconMode="clear_text">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputServerUrl"
-                        style="@style/ShizukuTextInputEditText"
-                        android:inputType="textUri"
-                        android:singleLine="true" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/ShizukuTextInputLayout"
-                    android:layout_marginTop="12dp"
-                    android:hint="@string/settings_upload_token"
-                    app:endIconMode="password_toggle">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputUploadToken"
-                        style="@style/ShizukuTextInputEditText"
-                        android:inputType="textPassword"
-                        android:singleLine="true" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/ShizukuTextInputLayout"
-                    android:layout_marginTop="12dp"
-                    android:hint="@string/settings_upload_interval">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputUploadInterval"
-                        style="@style/ShizukuTextInputEditText"
-                        android:inputType="number"
-                        android:singleLine="true" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/ShizukuTextInputLayout"
-                    android:layout_marginTop="12dp"
-                    android:hint="@string/settings_display_delay">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputDisplayDelay"
-                        style="@style/ShizukuTextInputEditText"
-                        android:inputType="number"
-                        android:singleLine="true" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="0dp"
-                    app:strokeWidth="0dp">
-
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/switchPrivateMode"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:gravity="center_vertical"
-                        android:paddingStart="18dp"
-                        android:paddingEnd="18dp"
-                        android:text="@string/settings_private_mode"
-                        android:textSize="14sp"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textStyle="normal"
-                        app:thumbTint="?attr/colorPrimary"
-                        app:trackTint="?attr/colorSecondaryContainer" />
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnSaveSettings"
-                    style="@style/ShizukuButton"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:gravity="center"
-                    android:text="@string/action_save_settings" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
-</ScrollView>
+
+    <ScrollView
+        android:id="@+id/settingsRootScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="?attr/colorSurface"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="22dp"
+            android:paddingTop="8dp"
+            android:paddingRight="22dp"
+            android:paddingBottom="28dp">
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/ShizukuCard"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="20dp">
+
+                    <TextView
+                        style="@style/ShizukuCardTitle"
+                        android:text="@string/settings_permission_section" />
+
+                    <TextView
+                        android:id="@+id/tvPermissionStatus"
+                        style="@style/ShizukuCardSubtitle"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/status_initial" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnRequestPermission"
+                        style="@style/ShizukuButton"
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:text="@string/action_request_permission" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/ShizukuCard"
+                android:layout_marginTop="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="20dp">
+
+                    <TextView
+                        style="@style/ShizukuCardTitle"
+                        android:text="@string/settings_server_section" />
+
+                    <TextView
+                        style="@style/ShizukuCardSubtitle"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/settings_server_subtitle" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layoutServerUrl"
+                        style="@style/ShizukuTextInputLayout"
+                        android:layout_marginTop="18dp"
+                        android:hint="@string/settings_server_url"
+                        app:endIconMode="clear_text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputServerUrl"
+                            style="@style/ShizukuTextInputEditText"
+                            android:inputType="textUri"
+                            android:singleLine="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/ShizukuTextInputLayout"
+                        android:layout_marginTop="12dp"
+                        android:hint="@string/settings_upload_token"
+                        app:endIconMode="password_toggle">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputUploadToken"
+                            style="@style/ShizukuTextInputEditText"
+                            android:inputType="textPassword"
+                            android:singleLine="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/ShizukuCard"
+                android:layout_marginTop="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="20dp">
+
+                    <TextView
+                        style="@style/ShizukuCardTitle"
+                        android:text="@string/settings_upload_section" />
+
+                    <TextView
+                        style="@style/ShizukuCardSubtitle"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/settings_upload_subtitle" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layoutUploadInterval"
+                        style="@style/ShizukuTextInputLayout"
+                        android:layout_marginTop="18dp"
+                        android:hint="@string/settings_upload_interval">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputUploadInterval"
+                            style="@style/ShizukuTextInputEditText"
+                            android:inputType="number"
+                            android:singleLine="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layoutDisplayDelay"
+                        style="@style/ShizukuTextInputLayout"
+                        android:layout_marginTop="12dp"
+                        android:hint="@string/settings_display_delay">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputDisplayDelay"
+                            style="@style/ShizukuTextInputEditText"
+                            android:inputType="number"
+                            android:singleLine="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/ShizukuCard"
+                android:layout_marginTop="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="20dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/ShizukuCardTitle"
+                            android:text="@string/settings_privacy_section" />
+
+                        <TextView
+                            style="@style/ShizukuCardSubtitle"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/settings_privacy_subtitle" />
+                    </LinearLayout>
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switchPrivateMode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="12dp"
+                        android:gravity="center"
+                        android:minHeight="40dp"
+                        android:text=""
+                        app:thumbTint="@color/app_picker_switch_thumb"
+                        app:trackTint="@color/app_picker_switch_track" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/ShizukuCard"
+                android:layout_marginTop="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="20dp">
+
+                    <TextView
+                        style="@style/ShizukuCardTitle"
+                        android:text="@string/settings_foreground_filter_title" />
+
+                    <TextView
+                        style="@style/ShizukuCardSubtitle"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/settings_foreground_filter_subtitle" />
+
+                    <FrameLayout
+                        android:id="@+id/foregroundFilterSegmentControl"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/foreground_filter_segment_track"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:padding="2dp">
+
+                        <View
+                            android:id="@+id/foregroundFilterSegmentIndicator"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/foreground_filter_segment_indicator" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/btnForegroundFilterNone"
+                                style="@style/ShizukuSegmentedFilterText"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="@string/settings_foreground_filter_none" />
+
+                            <TextView
+                                android:id="@+id/btnForegroundFilterBlacklist"
+                                style="@style/ShizukuSegmentedFilterText"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="@string/settings_foreground_filter_blacklist" />
+
+                            <TextView
+                                android:id="@+id/btnForegroundFilterWhitelist"
+                                style="@style/ShizukuSegmentedFilterText"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="@string/settings_foreground_filter_whitelist" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvForegroundFilterHint"
+                        style="@style/ShizukuCardSubtitle"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/settings_foreground_filter_none_hint" />
+
+                    <LinearLayout
+                        android:id="@+id/foregroundPackageControls"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/StatusPreviewLabel"
+                            android:text="@string/settings_foreground_filter_packages" />
+
+                        <TextView
+                            android:id="@+id/tvForegroundPackages"
+                            style="@style/StatusPreviewValue"
+                            android:text="@string/settings_foreground_filter_empty" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnAddForegroundPackage"
+                                style="@style/ShizukuButton"
+                                android:layout_width="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/action_add_foreground_package" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnClearForegroundPackages"
+                                style="@style/ShizukuButton"
+                                android:layout_width="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:gravity="center"
+                                android:text="@string/action_clear_foreground_packages" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

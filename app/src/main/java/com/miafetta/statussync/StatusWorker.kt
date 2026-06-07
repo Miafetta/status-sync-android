@@ -1,4 +1,4 @@
-package com.miafetta.statussyncandroid
+package com.miafetta.statussync
 
 import android.content.Context
 import androidx.work.Constraints
@@ -37,10 +37,14 @@ class StatusWorker(context: Context, params: WorkerParameters) : Worker(context,
 
         try {
             val jsonBody = DeviceStatusCollector.collect().toUploadJson(applicationContext)
+            val serverUrl = AppSettings.serverUrl(applicationContext)
+            if (serverUrl.isBlank()) {
+                return Result.failure()
+            }
             val uploadToken = AppSettings.uploadToken(applicationContext)
 
             val requestBuilder = Request.Builder()
-                .url(AppSettings.serverUrl(applicationContext))
+                .url(serverUrl)
                 .post(jsonBody.toString().toRequestBody("application/json".toMediaType()))
 
             if (uploadToken.isNotBlank()) {

@@ -1,4 +1,4 @@
-package com.miafetta.statussyncandroid
+package com.miafetta.statussync
 
 import android.content.Context
 import android.widget.Toast

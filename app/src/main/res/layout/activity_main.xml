@@ -244,10 +244,21 @@
                     <LinearLayout style="@style/ShizukuPreviewRow">
                         <TextView
                             style="@style/StatusPreviewLabel"
-                            android:text="@string/field_window" />
+                            android:text="@string/field_current_app_package" />
 
                         <TextView
-                            android:id="@+id/tvWindowValue"
+                            android:id="@+id/tvCurrentAppPackageValue"
+                            style="@style/StatusPreviewValue"
+                            android:text="@string/preview_waiting" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/ShizukuPreviewRow">
+                        <TextView
+                            style="@style/StatusPreviewLabel"
+                            android:text="@string/field_current_app_name" />
+
+                        <TextView
+                            android:id="@+id/tvCurrentAppNameValue"
                             style="@style/StatusPreviewValue"
                             android:text="@string/preview_waiting" />
                     </LinearLayout>
