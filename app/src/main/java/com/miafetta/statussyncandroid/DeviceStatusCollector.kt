@@ -19,8 +19,6 @@ data class DeviceStatusSnapshot(
 ) {
     fun toUploadJson(context: Context): JSONObject {
         val uploadSnapshot = toUploadPreview(context)
-        val displayDelayMinutes = AppSettings.displayDelayMinutes(context)
-        val visibleAfterUnixMs = System.currentTimeMillis() + displayDelayMinutes * 60_000L
 
         return JSONObject().apply {
             put("model", uploadSnapshot.model)
@@ -29,9 +27,6 @@ data class DeviceStatusSnapshot(
             put("wifi_raw", uploadSnapshot.wifiRaw)
             put("net_raw", uploadSnapshot.networkRaw)
             put("location_raw", uploadSnapshot.locationRaw)
-            put("private_mode", AppSettings.privateMode(context))
-            put("display_delay_minutes", displayDelayMinutes)
-            put("visible_after_unix_ms", visibleAfterUnixMs)
         }
     }
 

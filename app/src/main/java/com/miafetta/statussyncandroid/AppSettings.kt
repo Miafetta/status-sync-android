@@ -7,7 +7,7 @@ object AppSettings {
     const val DEFAULT_UPLOAD_TOKEN = ""
     const val DEFAULT_UPLOAD_INTERVAL_MINUTES = 15L
     const val DEFAULT_DISPLAY_DELAY_MINUTES = 0L
-    const val PRIVATE_STATUS_MESSAGE = "主人正在摸鱼"
+    const val PRIVATE_STATUS_MESSAGE = "none"
 
     private const val PREFS_NAME = "status_sync_settings"
     private const val KEY_SERVER_URL = "server_url"
