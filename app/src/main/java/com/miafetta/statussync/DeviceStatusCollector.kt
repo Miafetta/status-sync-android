@@ -1,12 +1,8 @@
 package com.miafetta.statussync
 
 import android.content.Context
-import android.os.ParcelFileDescriptor
-import moe.shizuku.server.IShizukuService
 import org.json.JSONObject
-import rikka.shizuku.Shizuku
-import java.io.BufferedReader
-import java.io.InputStreamReader
+import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
 data class DeviceStatusSnapshot(
@@ -105,46 +101,41 @@ data class DeviceStatusSnapshot(
 
 object DeviceStatusCollector {
     fun collect(): DeviceStatusSnapshot {
-        return DeviceStatusSnapshot(
-            model = runShizukuCommand("getprop ro.product.model"),
-            batteryRaw = runShizukuCommand("dumpsys battery"),
-            windowRaw = runShizukuCommand("dumpsys window | grep -E 'mCurrentFocus|mFocusedApp|mFocusedWindow'"),
-            wifiRaw = runShizukuCommand("cmd wifi status | grep -E 'Wifi is connected|WifiInfo'"),
-            networkRaw = runShizukuCommand("getprop gsm.network.type"),
-            locationRaw = runShizukuCommand("dumpsys location | grep -A 1 'last location'")
-        )
-    }
-
-    private fun runShizukuCommand(command: String): String {
+        val executor = Executors.newFixedThreadPool(statusCommands.size)
         return try {
-            val service = IShizukuService.Stub.asInterface(Shizuku.getBinder())
-                ?: return "Shizuku 未连接"
-            val process = service.newProcess(arrayOf("sh", "-c", command), null, null)
-
-            val finished = process.waitForTimeout(8, TimeUnit.SECONDS.name)
-            if (!finished) {
-                process.destroy()
-                return "读取超时"
+            val futures = statusCommands.mapValues { (_, command) ->
+                executor.submit<String> { ShizukuShell.run(command) }
             }
 
-            val output = process.getInputStream().readTextFromDescriptor()
-            val error = process.getErrorStream().readTextFromDescriptor()
-            output.ifBlank { error }.ifBlank { "暂无输出" }
-        } catch (e: Exception) {
-            "读取失败：${e.javaClass.simpleName}"
+            DeviceStatusSnapshot(
+                model = futures.valueFor("model"),
+                batteryRaw = futures.valueFor("battery"),
+                windowRaw = futures.valueFor("window"),
+                wifiRaw = futures.valueFor("wifi"),
+                networkRaw = futures.valueFor("network"),
+                locationRaw = futures.valueFor("location")
+            )
+        } finally {
+            executor.shutdownNow()
         }
     }
 
-    private fun ParcelFileDescriptor.readTextFromDescriptor(): String {
-        return ParcelFileDescriptor.AutoCloseInputStream(this).use { inputStream ->
-            BufferedReader(InputStreamReader(inputStream)).use { reader ->
-                val output = StringBuilder()
-                var line: String?
-                while (reader.readLine().also { line = it } != null) {
-                    output.append(line).append('\n')
-                }
-                output.toString().trim()
-            }
+    private fun Map<String, java.util.concurrent.Future<String>>.valueFor(key: String): String {
+        return runCatching {
+            getValue(key).get(COMMAND_RESULT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+        }.getOrElse { error ->
+            "读取失败：${error.javaClass.simpleName}"
         }
     }
+
+    private val statusCommands = linkedMapOf(
+        "model" to "getprop ro.product.model",
+        "battery" to "dumpsys battery",
+        "window" to "dumpsys window | grep -E 'mCurrentFocus|mFocusedApp|mFocusedWindow'",
+        "wifi" to "cmd wifi status | grep -E 'Wifi is connected|WifiInfo'",
+        "network" to "getprop gsm.network.type",
+        "location" to "dumpsys location | grep -A 1 'last location'"
+    )
+
+    private const val COMMAND_RESULT_TIMEOUT_SECONDS = 12L
 }

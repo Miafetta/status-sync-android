@@ -1,9 +1,11 @@
 package com.miafetta.statussync
 
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -19,7 +21,6 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import androidx.work.workDataOf
 import rikka.shizuku.Shizuku
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -70,13 +71,7 @@ class MainActivity : AppCompatActivity() {
         btnStart.setOnClickListener {
             when (getShizukuStatus()) {
                 ShizukuStatus.AUTHORIZED -> {
-                    startBackgroundWorker()
-                    val interval = AppSettings.uploadIntervalMinutes(this)
-                    AppToast.show(
-                        this,
-                        getString(R.string.toast_sync_started, interval),
-                        android.widget.Toast.LENGTH_LONG
-                    )
+                    startForegroundSync()
                 }
 
                 ShizukuStatus.NEEDS_PERMISSION -> {
@@ -131,6 +126,23 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         updateStatus()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode != REQUEST_POST_NOTIFICATIONS) {
+            return
+        }
+
+        if (grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED) {
+            startForegroundSyncService()
+        } else {
+            AppToast.show(this, R.string.toast_notification_permission_required)
+        }
     }
 
     private fun applyContentInsets() {
@@ -328,21 +340,40 @@ class MainActivity : AppCompatActivity() {
         }.getOrDefault(ShizukuStatus.UNAVAILABLE)
     }
 
-    private fun startBackgroundWorker() {
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build()
+    private fun startForegroundSync() {
+        if (!ensureNotificationPermission()) {
+            return
+        }
+        startForegroundSyncService()
+    }
 
-        val workRequest = OneTimeWorkRequestBuilder<StatusWorker>()
-            .setInputData(workDataOf(StatusWorker.KEY_RECURRING to true))
-            .setConstraints(constraints)
-            .build()
-
-        WorkManager.getInstance(this).enqueueUniqueWork(
-            StatusWorker.RECURRING_WORK_NAME,
-            ExistingWorkPolicy.REPLACE,
-            workRequest
+    private fun startForegroundSyncService() {
+        WorkManager.getInstance(this).cancelUniqueWork(StatusWorker.RECURRING_WORK_NAME)
+        thread {
+            StatusSyncPowerKeeper.applyBestEffort(applicationContext)
+        }
+        StatusSyncService.start(this)
+        val interval = AppSettings.uploadIntervalMinutes(this)
+        AppToast.show(
+            this,
+            getString(R.string.toast_sync_started, interval),
+            android.widget.Toast.LENGTH_LONG
         )
+    }
+
+    private fun ensureNotificationPermission(): Boolean {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            return true
+        }
+        if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+            return true
+        }
+
+        requestPermissions(
+            arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+            REQUEST_POST_NOTIFICATIONS
+        )
+        return false
     }
 
     private fun enqueueImmediateUpload() {
@@ -365,6 +396,10 @@ class MainActivity : AppCompatActivity() {
         AUTHORIZED,
         NEEDS_PERMISSION,
         UNAVAILABLE
+    }
+
+    companion object {
+        private const val REQUEST_POST_NOTIFICATIONS = 1001
     }
 
 }

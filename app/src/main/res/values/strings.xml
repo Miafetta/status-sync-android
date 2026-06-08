@@ -65,4 +65,11 @@
     <string name="toast_upload_once_enqueued">已加入上传队列</string>
     <string name="toast_request_permission_first">请先获取 Shizuku 授权</string>
     <string name="toast_request_permission_failed">获取 Shizuku 授权失败</string>
+    <string name="toast_notification_permission_required">需要允许通知后才能显示前台同步通知</string>
+    <string name="notification_sync_channel">状态同步</string>
+    <string name="notification_sync_title">状态同步运行中</string>
+    <string name="notification_sync_starting">正在准备后台同步</string>
+    <string name="notification_sync_last_success">最近上传成功：%1$s</string>
+    <string name="notification_sync_last_failed">最近上传失败：%1$s，%2$s</string>
+    <string name="notification_sync_stop">停止同步</string>
 </resources>
